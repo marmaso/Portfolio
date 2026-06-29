@@ -17,7 +17,7 @@
   </ul>
 </nav>
 
-<a href="index.html#proyectos" class="back-arrow">←</a>
+<a onclick="navigateBack()" class="back-arrow">←</a>
 
 <style>
 .back-arrow {
@@ -288,11 +288,35 @@
 </div>
 
 <script>
-  const pages = { home: 'page-home', video: 'page-video', fotos: 'page-fotos', sobre: 'page-sobre', contacto: 'page-contacto' };
+
+  const pages = {
+    home: 'page-home',
+    video: 'page-video',
+    fotos: 'page-fotos',
+    sobre: 'page-sobre',
+    contacto: 'page-contacto'
+  };
+
+  let currentPage = 'home';
+  let lastPage = 'home';
+
   function showPage(key) {
-    Object.values(pages).forEach(id => document.getElementById(id).classList.remove('active'));
+    if (key !== currentPage) {
+      lastPage = currentPage;
+      currentPage = key;
+    }
+
+    Object.values(pages).forEach(id =>
+            document.getElementById(id).classList.remove('active')
+    );
+
     document.getElementById(pages[key]).classList.add('active');
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function navigateBack() {
+    showPage(lastPage);
   }
 </script>
 
