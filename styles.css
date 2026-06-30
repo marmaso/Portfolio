@@ -134,6 +134,19 @@ nav {
   color: #111; margin-bottom: 1.5rem;
 }
 
+/* centrar título de página cuando incluye gif (ej. Contacto) */
+.contact-icon {
+  height: 64px;
+  width: 64px;
+  object-fit: contain;
+  display: block;
+}
+
+.contact-icon--small {
+  height: 40px;  
+  width: 40px;
+}
+
 /* ══════════════════════════
    FOTOS PAGE
 ══════════════════════════ */
