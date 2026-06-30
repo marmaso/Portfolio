@@ -161,6 +161,47 @@ nav {
 .grid-img svg { width: 100%; display: block; transition: transform 0.6s; }
 .grid-img:hover svg { transform: scale(1.04); }
 
+.project-foto { position: relative; display: block; overflow: hidden; }
+
+.project-foto img{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.project-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.35s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.foto-thumb-label {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 1.8rem;
+  z-index: 5; 
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  font-weight: 300;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.project-foto:hover::after { background: rgba(0,0,0,0.32); }
+.project-foto:hover img { filter: none; transform: scale(1.01); }
+.project-foto:hover .foto-thumb-label { opacity: 1; transform: translateY(0); }
+
 /* ══════════════════════════
    VIDEO PAGE
 ══════════════════════════ */
@@ -196,7 +237,7 @@ nav {
 .video-footter{
   font-family: 'Gara';
   font-size: 1rem;
-  padding-top: 1rem;
+  padding-top: 0.8rem;
 }
 
 .video-embed {
@@ -228,6 +269,26 @@ nav {
   text-transform: uppercase; color: rgba(255,255,255,0.4);
   font-weight: 300;
 }
+
+.video-embed .embed-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 1; 
+  overflow: hidden; /* hide native scrollbars of the frame element */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.video-embed svg { z-index: 0; }
+
+.video-embed .embed-iframe + .play-btn { pointer-events: none; }
+
+/* hide scrollbar visuals for webkit browsers on the iframe element */
+.video-embed .embed-iframe::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 /* ══════════════════════════
    SOBRE MÍ & CONTACTO
@@ -336,5 +397,14 @@ nav {
     padding: 0 1.5rem 5rem;
   }
   .about-photo { position: static; }
+  /* móvil: hacer que la etiqueta esté debajo de la imagen para mejor legibilidad */
+  .project-foto { position: static; }
+  .foto-thumb-label {
+    position: static;
+    display: block;
+    margin-top: 0.6rem;
+    color: #666;
+    letter-spacing: 0.12em;
+  }
 }
 
