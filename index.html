@@ -17,23 +17,9 @@
   </ul>
 </nav>
 
-<a onclick="navigateBack()" class="back-arrow">←</a>
-
-<style>
-.back-arrow {
-    position: fixed;
-    top: 80px;
-    left: 20px;
-    font-size: 2rem;
-    text-decoration: none;
-    color: #000;
-    z-index: 1000;
-}
-
-.back-arrow:hover {
-    opacity: 0.7;
-}
-</style>
+<div onclick="navigateBack()" class="back-arrow">
+  <img  src="GIF-4.gif" alt="">
+</div>
 
 <!-- ══════════════════════════
      HOME
@@ -45,6 +31,18 @@
   </section>
   <div class="divider"></div>
   <div class="works">
+    <!-- Work item with image carousel controls -->
+    <div class="work-item" onclick="showPage('fotos')">
+      <div class="carousel" id="carousel-1" data-images="media/comparacion%201.png,media/collage%20forus.png,media/collage%20pp.png">
+        <img src="media/comparacion%201.png" alt="" class="carousel-img">
+      </div>
+      <button class="carousel-btn carousel-btn--left" aria-label="Anterior">‹</button>
+      <button class="carousel-btn carousel-btn--right" aria-label="Siguiente">›</button>
+      <div class="work-label"><span class="work-label-text">Ver más</span></div>
+    </div>
+
+    <img  src="GIF-4.gif" alt="">
+    
     <div class="work-item" onclick="showPage('video')">
       <svg class="work-svg" viewBox="0 0 700 525" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="525" fill="#1c1c1a"/>
@@ -73,22 +71,6 @@
       </svg>
       <div class="work-label"><span class="work-label-text">Video</span></div>
     </div>
-    <div class="work-item" onclick="showPage('fotos')">
-      <svg class="work-svg" viewBox="0 0 700 525" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <rect width="700" height="525" fill="#ccc6bc"/>
-        <rect x="0" y="0" width="700" height="315" fill="#c4beb2" opacity="0.7"/>
-        <rect x="0" y="315" width="700" height="210" fill="#d4cec4" opacity="0.7"/>
-        <line x1="0" y1="315" x2="700" y2="315" stroke="#b4aea4" stroke-width="0.8" opacity="0.5"/>
-        <ellipse cx="350" cy="210" rx="70" ry="84" fill="#b8b2a6" opacity="0.4"/>
-        <ellipse cx="350" cy="136" rx="38" ry="42" fill="#b8b2a6" opacity="0.4"/>
-        <line x1="233" y1="0" x2="233" y2="525" stroke="#b4aea2" stroke-width="0.4" opacity="0.35"/>
-        <line x1="467" y1="0" x2="467" y2="525" stroke="#b4aea2" stroke-width="0.4" opacity="0.35"/>
-        <circle cx="350" cy="430" r="26" fill="none" stroke="#a4a098" stroke-width="1" opacity="0.45"/>
-        <circle cx="350" cy="430" r="14" fill="none" stroke="#a4a098" stroke-width="0.8" opacity="0.38"/>
-        <circle cx="350" cy="430" r="5" fill="#a4a098" opacity="0.35"/>
-      </svg>
-      <div class="work-label"><span class="work-label-text">Fotos</span></div>
-    </div>
   </div>
 </div>
 
@@ -111,8 +93,6 @@
       <div class="footer-container">
       <p class="video-footter">Las imágenes han sido capturadas por la empresa Stupendastic. Editado con Premiere Pro, Higgsfield y Kling.</p>
       <p class="video-footter">Este vídeo forma parte de una publicación realizada por la empresa Rubau en LinkedIn.</p>
-
-
       </div>      
     </div>
 
@@ -126,7 +106,8 @@
       <div class="footer-container">
       <p class="video-footter">Las imágenes han sido capturadas por la empresa Stupendastic. Editado con Premiere Pro.</p>
       <p class="video-footter">Este vídeo forma parte de una publicación realizada por la empresa Stupendastic en LinkedIn.</p>
-      </div>    </div>
+      </div>    
+    </div>
 
     <div class="video-entry">
       <p class="video-meta">Vídeo entrevista · 2026</p>
@@ -139,16 +120,11 @@
       <p class="video-footter">Las imágenes han sido capturadas por la empresa Stupendastic. Editado con Premiere Pro y After Effects.</p>
       <p class="video-footter">Este vídeo forma parte de una publicación realizada por la empresa Rubau en LinkedIn.</p>
       </div> 
-
-
+    </div>
   </div>
 </div>
 
-</div>
 
-<!-- ══════════════════════════
-     FOTOS
-══════════════════════════ -->
 <div class="page" id="page-fotos">
   <div class="page-header">
     <p class="page-title">Fotos</p>
@@ -211,16 +187,9 @@
         <a href="https://www.linkedin.com/posts/stupendastic_barcelona-activity-7397160588650483712-pkAD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC5O9jUBha1Y74nLiPtknvZ-u-uHMnKEQ14" target="_blank">Barcelona</a> ·
         <a href="https://www.linkedin.com/posts/stupendastic_activity-7300817412562579457-4ZHk?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC5O9jUBha1Y74nLiPtknvZ-u-uHMnKEQ14" target="_blank">Parque eólico</a> ·
         <a href="https://www.linkedin.com/posts/stupendastic_impresionante-estel-un-nuevo-icono-arquitect%C3%B3nico-activity-7284505611717791744-V-aT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC5O9jUBha1Y74nLiPtknvZ-u-uHMnKEQ14" target="_blank">Edificio Estel</a> ·
-
-
-</a> 
-
-</a>
-
-</div>
+        </p>
+      </div>
     </div>
-
-
   </div>
 </div>
 
@@ -310,6 +279,7 @@
   </div>
 </div>
 
+
 <script>
 
   const pages = {
@@ -335,6 +305,11 @@
 
     document.getElementById(pages[key]).classList.add('active');
 
+    const backArrowEl = document.querySelector('.back-arrow');
+    if (backArrowEl) {
+      backArrowEl.style.display = (key === 'home') ? 'none' : 'block';
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -342,6 +317,62 @@
     showPage(lastPage);
     lastPage = 'home';
   }
+
+  (function() {
+    const backArrowEl = document.querySelector('.back-arrow');
+    if (backArrowEl) {
+      backArrowEl.style.display = (currentPage === 'home') ? 'none' : 'block';
+    }
+  })();
+
+  function initCarousels() {
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const imgEl = carousel.querySelector('.carousel-img');
+      const workItem = carousel.closest('.work-item');
+      const btnLeft = workItem ? workItem.querySelector('.carousel-btn--left') : null;
+      const btnRight = workItem ? workItem.querySelector('.carousel-btn--right') : null;
+      const images = (carousel.dataset.images || '').split(',').map(s => s.trim()).filter(Boolean);
+      if (!images.length || !imgEl) return;
+
+      carousel._idx = 0;
+
+      function update() {
+        imgEl.src = images[carousel._idx];
+      }
+
+      btnLeft && btnLeft.addEventListener('click', function(e) {
+        e.stopPropagation();
+        carousel._idx = (carousel._idx - 1 + images.length) % images.length;
+        update();
+      });
+
+      btnRight && btnRight.addEventListener('click', function(e) {
+        e.stopPropagation();
+        carousel._idx = (carousel._idx + 1) % images.length;
+        update();
+      });
+
+      [btnLeft, btnRight].forEach(btn => {
+        if (btn && workItem) {
+          btn.addEventListener('mouseenter', () => {
+            workItem.classList.add('carousel-btn-hovered');
+          });
+          btn.addEventListener('mouseleave', () => {
+            workItem.classList.remove('carousel-btn-hovered');
+          });
+        }
+      });
+
+      imgEl.addEventListener('click', function(e) {});
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousels);
+  } else {
+    initCarousels();
+  }
+
 </script>
 
 </body>
