@@ -182,6 +182,7 @@ nav {
 }
 
 .foto-thumb-label {
+  font-family: 'Hurme';
   position: absolute;
   bottom: 2.5rem;
   left: 1.8rem;
@@ -234,10 +235,19 @@ nav {
   margin-bottom: 2rem; letter-spacing: 0.02em;
 }
 
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
 .video-footter{
-  font-family: 'Gara';
-  font-size: 1rem;
-  padding-top: 0.8rem;
+    font-family: 'Hurme';
+  font-size: 0.68rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #aaa;
+  font-weight: 400; 
+  
 }
 
 .video-embed {
