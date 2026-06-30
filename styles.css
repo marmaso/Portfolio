@@ -171,7 +171,7 @@ nav {
 .video-entry,
 .project-group {
   border-top: 1px solid #e8e8e8;
-  padding: 3.5rem 0;
+  padding: 3.5rem 0 2rem;
 }
 .video-entry:last-child { border-bottom: 1px solid #e8e8e8; }
 .video-meta {
@@ -192,6 +192,13 @@ nav {
   line-height: 1.9;
   margin-bottom: 2rem; letter-spacing: 0.02em;
 }
+
+.video-footter{
+  font-family: 'Gara';
+  font-size: 1rem;
+  padding-top: 1rem;
+}
+
 .video-embed {
   width: 100%; aspect-ratio: 16/9;
   background: #111; position: relative;
