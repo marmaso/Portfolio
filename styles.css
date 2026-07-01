@@ -102,11 +102,19 @@ nav {
 .works {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 2rem;
   padding: 0 2rem 6rem;
   max-width: 1100px;
   margin: 0 auto;
   align-items: center;
+}
+
+.works > .work-section-title {
+  margin-bottom: 0;
+}
+
+.works > .work-section-title + .work-item {
+  margin-top: 1rem;
 }
 
 .works img {
