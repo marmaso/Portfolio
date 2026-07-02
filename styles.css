@@ -130,8 +130,8 @@ nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  width: 70px;
+  height: auto;
   border-radius: 999px;
   border: none;
   background: transparent;
@@ -153,11 +153,28 @@ nav {
 }
 .carousel-btn:hover { transform: translateY(-50%) scale(1.03); }
 .carousel-btn:active { transform: translateY(-50%) scale(0.98); }
-.carousel-btn--left { left: 0px; }
-.carousel-btn--right { right: 0px; }
+.carousel-btn--left { left: 20px; }
+.carousel-btn--right { right: 20px; }
 
 .home-video-wrap { width: 100%; max-width: 96%; margin: 0 auto; }
 .home-video-frame { width: 100%; display: block; aspect-ratio: 16 / 9; height: auto; border: 0; }
+
+/* overlay for home video: shows on hover of the video area */
+.home-video-wrap { position: relative; }
+.video-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 1rem;
+  opacity: 0; visibility: hidden; transition: opacity 0.18s ease, visibility 0.18s;
+  pointer-events: none; z-index: 6;
+}
+.home-video-wrap:hover .video-overlay { opacity: 1; visibility: visible; pointer-events: auto; }
+.overlay-btn {
+  background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 6px;
+  font-family: inherit; cursor: pointer; font-size: 0.95rem;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.overlay-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-2px); }
+.overlay-btn:active { transform: translateY(0); }
+
 
 @media (max-width: 768px) {
   .carousel-btn { width: 40px; height: 40px; font-size: 1.25rem; }

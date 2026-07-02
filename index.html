@@ -52,6 +52,10 @@
     <div class="work-item" onclick="showPage('video')">
       <div class="home-video-wrap">
         <iframe class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="video-overlay" aria-hidden="true">
+          <button class="overlay-btn overlay-btn--play">Reproducir</button>
+          <button class="overlay-btn overlay-btn--more">Ver más</button>
+        </div>
       </div>
       <div class="work-label"><span class="work-label-text">Ver más</span></div>
     </div>
@@ -360,10 +364,41 @@
     });
   }
 
+  function initHomeVideo() {
+    document.querySelectorAll('.home-video-wrap').forEach(wrap => {
+      const iframe = wrap.querySelector('.home-video-frame');
+      const playBtn = wrap.querySelector('.overlay-btn--play');
+      const moreBtn = wrap.querySelector('.overlay-btn--more');
+      if (!iframe) return;
+      // store original src so we can add autoplay on demand
+      const originalSrc = iframe.getAttribute('src') || '';
+      iframe.dataset.origSrc = originalSrc;
+
+      if (playBtn) {
+        playBtn.addEventListener('click', function(e) {
+          e.stopPropagation(); e.preventDefault();
+          let src = iframe.dataset.origSrc || '';
+          if (!/autoplay=1/.test(src)) {
+            src += (src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
+          }
+          iframe.src = src;
+        });
+      }
+
+      if (moreBtn) {
+        moreBtn.addEventListener('click', function(e) {
+          e.stopPropagation(); e.preventDefault();
+          showPage('video');
+        });
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCarousels);
+    document.addEventListener('DOMContentLoaded', function() { initCarousels(); initHomeVideo(); });
   } else {
     initCarousels();
+    initHomeVideo();
   }
 
 </script>
