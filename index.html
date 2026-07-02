@@ -31,9 +31,9 @@
   </section>
   <div class="divider"></div>
   <div class="works">
-    
+
     <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE FOTOGRAFÍA</h1>
-    
+
     <div class="work-item" onclick="showPage('fotos')">
       <div class="carousel hoverable-item" id="carousel-1" data-images="media/comparacion%201.png,media/comparacion%202.png,media/comparacion%203.png,media/comparacion%207.png,media/comparacion%209.png">
         <img src="media/comparacion%201.png" alt="" class="carousel-img">
@@ -50,10 +50,15 @@
     <img src="GIF-5.gif" alt="" style="width: 100px; height: auto; display: block; margin: 1rem  auto 1rem;">
 
     <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE VÍDEO</h1>
-    
+
     <div class="work-item" onclick="showPage('video')">
       <div class="home-video-wrap">
-        <iframe class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <!-- Replace iframe with a div that will be turned into a YouTube player via the IFrame API -->
+        <div id="home-player-1" class="home-video-frame" data-video-id="XgjYDSUpa_o"></div>
+        <div class="video-overlay" aria-hidden="true">
+          <button class="overlay-btn overlay-btn--play">Reproducir</button>
+          <button class="overlay-btn overlay-btn--more">Ver más</button>
+        </div>
       </div>
       <div class="work-label"><span class="work-label-text">Ver más</span></div>
     </div>
@@ -79,7 +84,7 @@
       <div class="footer-container">
       <p class="video-footter">Las imágenes han sido capturadas por la empresa Stupendastic. Editado con Premiere Pro, Higgsfield y Kling.</p>
       <p class="video-footter">Este vídeo forma parte de una publicación realizada por la empresa Rubau en LinkedIn.</p>
-      </div>      
+      </div>
     </div>
 
     <div class="video-entry">
@@ -362,11 +367,101 @@
     });
   }
 
+  function initHomeVideo() {
+    const pending = [];
+    document.querySelectorAll('.home-video-wrap').forEach(wrap => {
+      const container = wrap.querySelector('.home-video-frame');
+      const playBtn = wrap.querySelector('.overlay-btn--play');
+      const moreBtn = wrap.querySelector('.overlay-btn--more');
+      if (!container) return;
+      const videoId = container.dataset.videoId;
+      pending.push({ wrap, container, videoId, playBtn, moreBtn });
+    });
+
+    function createPlayers() {
+      pending.forEach((item, idx) => {
+        const { wrap, container, videoId, playBtn, moreBtn } = item;
+        // ensure the container has an id for YT.Player
+        if (!container.id) container.id = 'home-player-' + (idx + 1);
+        const player = new YT.Player(container.id, {
+          videoId: videoId,
+          width: '100%',
+          height: '100%',
+          playerVars: {
+            controls: 0,
+            modestbranding: 1,
+            rel: 0,
+            iv_load_policy: 3,
+            disablekb: 1,
+            playsinline: 1,
+            fs: 0
+          },
+          events: {
+            onReady: function(e) {
+              // keep player instance on the wrap for later use
+              wrap._ytPlayer = player;
+            }
+          }
+        });
+
+        if (playBtn) {
+          playBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); e.preventDefault();
+            // ensure click triggers play through the API
+            if (wrap._ytPlayer && typeof wrap._ytPlayer.playVideo === 'function') {
+              wrap._ytPlayer.playVideo();
+            }
+          });
+        }
+
+        if (moreBtn) {
+          moreBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); e.preventDefault();
+            showPage('video');
+          });
+        }
+      });
+    }
+
+    // Load IFrame API if needed and then create players
+    if (window.YT && window.YT.Player) {
+      createPlayers();
+    } else {
+      // queue creation after API ready
+      window._pendingHomePlayers = window._pendingHomePlayers || [];
+      window._pendingHomePlayers.push(createPlayers);
+      if (!document.getElementById('youtube-iframe-api')) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        tag.id = 'youtube-iframe-api';
+        document.head.appendChild(tag);
+      }
+      // expose global callback used by the API
+      window.onYouTubeIframeAPIReady = function() {
+        (window._pendingHomePlayers || []).forEach(fn => fn());
+        window._pendingHomePlayers = [];
+      };
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCarousels);
+    document.addEventListener('DOMContentLoaded', function() { initCarousels(); initHomeVideo(); });
   } else {
     initCarousels();
+    initHomeVideo();
   }
+
+  // debug helper: log widths to console to help diagnose sizing issues
+  function logVideoSizes() {
+    const works = document.querySelector('.works');
+    const carousel = document.querySelector('.carousel');
+    const homeWrap = document.querySelector('.home-video-wrap');
+    console.log('works clientWidth:', works && works.clientWidth);
+    console.log('carousel clientWidth:', carousel && carousel.clientWidth);
+    console.log('home-video-wrap clientWidth:', homeWrap && homeWrap.clientWidth);
+  }
+  // run shortly after init to let layout settle
+  setTimeout(logVideoSizes, 300);
 
 </script>
 
