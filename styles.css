@@ -117,6 +117,7 @@ nav {
 .work-item {
   position: relative; overflow: visible;
   display: block;
+  width: 100%; /* ensure work-item stretches the full width of the .works container so percentage children size correctly */
 }
 .work-item.carousel-btn-hovered::after { background: rgba(0,0,0,0) !important; }
 .work-item.carousel-btn-hovered .work-label-text { opacity: 0 !important; }
@@ -156,7 +157,7 @@ nav {
 .carousel-btn--left { left: 20px; }
 .carousel-btn--right { right: 20px; }
 
-.home-video-wrap { width: 100%; max-width: 96%; margin: 0 auto; }
+.home-video-wrap { width: 70%; max-width: 700px; margin: 0 auto; }
 .home-video-frame { width: 100%; display: block; aspect-ratio: 16 / 9; height: auto; border: 0; }
 
 /* overlay for home video: shows on hover of the video area */
@@ -519,6 +520,7 @@ nav {
     padding: 0 1.5rem 5rem;
   }
   .about-photo { position: static; }
+  .home-video-wrap { width: 100%; max-width: 96%; }
   /* móvil: hacer que la etiqueta esté debajo de la imagen para mejor legibilidad */
   .project-foto { position: static; }
   .foto-thumb-label {
