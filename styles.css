@@ -195,10 +195,10 @@ nav {
 }
 
 .work-item-desc{
-  font-family: 'Gara';
-  font-size: 1.15rem; font-weight: 500; 
-  align-self: start;
-  margin-left: 1.5rem;
+font-family: 'Hurme';
+  font-size: 0.68rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #aaa;
+  font-weight: 400;
 }
 
 /* ══════════════════════════
