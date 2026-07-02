@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Hurme';
-  src: url('fonts/HurmeGeometricSans4\ SemiBold.ttf');
+  /* filename contains a space; use quoted url without backslash */
+  src: url('fonts/HurmeGeometricSans4 SemiBold.ttf');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -157,24 +158,37 @@ nav {
 .carousel-btn--left { left: 20px; }
 .carousel-btn--right { right: 20px; }
 
-.home-video-wrap { width: 70%; max-width: 700px; margin: 0 auto; }
-.home-video-frame { width: 100%; display: block; aspect-ratio: 16 / 9; height: auto; border: 0; }
+ .home-video-wrap { width: 70%; max-width: 700px; margin: 0 auto; }
+ /* make the video frame animate its brightness like the carousel images */
+ .home-video-frame { width: 100%; display: block; aspect-ratio: 16 / 9; height: auto; border: 0; transition: filter 0.4s; }
 
 /* overlay for home video: shows on hover of the video area */
 .home-video-wrap { position: relative; }
-.video-overlay {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 1rem;
-  opacity: 0; visibility: hidden; transition: opacity 0.18s ease, visibility 0.18s;
-  pointer-events: none; z-index: 6;
-}
-.home-video-wrap:hover .video-overlay { opacity: 1; visibility: visible; pointer-events: auto; }
-.overlay-btn {
-  background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 6px;
-  font-family: inherit; cursor: pointer; font-size: 0.95rem;
-  transition: background 0.12s ease, transform 0.12s ease;
-}
-.overlay-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-2px); }
-.overlay-btn:active { transform: translateY(0); }
+ .video-overlay {
+   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 1rem;
+   opacity: 0; visibility: hidden; transition: opacity 0.28s ease, visibility 0.28s;
+   pointer-events: none; z-index: 6;
+ }
+ /* on hover we both reveal the overlay buttons and darken the video to match carousel behaviour */
+ .home-video-wrap:hover .video-overlay { opacity: 1; visibility: visible; pointer-events: auto; }
+  /* slightly darker on hover to increase contrast and match carousel aesthetic */
+  .home-video-wrap:hover .home-video-frame { filter: brightness(0.72); }
+
+ /* Overlay buttons use the same aesthetic font and styling as the carousel label */
+  .overlay-btn {
+    /* make the button background a bit lighter so it reads better over the darker video */
+    background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 0.7rem 1.2rem; border-radius: 8px;
+   font-family: 'Hurme'; /* use the same font as the work label */
+   text-transform: uppercase;
+   letter-spacing: 0.12em;
+   font-weight: 500;
+   cursor: pointer; font-size: 1rem;
+   transition: background 0.12s ease, transform 0.12s ease, opacity 0.25s ease, transform 0.25s ease;
+   opacity: 0; transform: translateY(6px);
+ }
+  .home-video-wrap:hover .overlay-btn { opacity: 1; transform: translateY(0); }
+  .overlay-btn:hover { background: rgba(0,0,0,0.65); transform: translateY(-2px); }
+ .overlay-btn:active { transform: translateY(0); }
 
 
 @media (max-width: 768px) {

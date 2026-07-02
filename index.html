@@ -53,8 +53,7 @@
 
     <div class="work-item" onclick="showPage('video')">
       <div class="home-video-wrap">
-        <!-- Replace iframe with a div that will be turned into a YouTube player via the IFrame API -->
-        <div id="home-player-1" class="home-video-frame" data-video-id="XgjYDSUpa_o"></div>
+        <iframe class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <div class="video-overlay" aria-hidden="true">
           <button class="overlay-btn overlay-btn--play">Reproducir</button>
           <button class="overlay-btn overlay-btn--more">Ver más</button>
@@ -286,16 +285,25 @@
   let lastPage = 'home';
 
   function showPage(key) {
-    if (key !== currentPage) {
-      lastPage = currentPage;
-      currentPage = key;
-    }
+    // if already on the requested page, do nothing
+    if (key === currentPage) return;
+
+    // stop media playing on the page we're leaving, and restore media on the page we enter
+    const prevKey = currentPage;
+    lastPage = currentPage;
+    currentPage = key;
+
+    // stop media on previous page (if any)
+    try { stopMediaInPage(document.getElementById(pages[prevKey])); } catch (e) {}
 
     Object.values(pages).forEach(id =>
             document.getElementById(id).classList.remove('active')
     );
 
     document.getElementById(pages[key]).classList.add('active');
+
+    // restore media on the newly active page (e.g. reload iframes we previously cleared)
+    try { restoreMediaInPage(document.getElementById(pages[key])); } catch (e) {}
 
     const backArrowEl = document.querySelector('.back-arrow');
     if (backArrowEl) {
@@ -308,6 +316,49 @@
   function navigateBack() {
     showPage(lastPage);
     lastPage = 'home';
+  }
+
+  // Stop and restore helpers for embedded media (iframes, html5 videos, youtube players)
+  function stopMediaInPage(pageEl) {
+    if (!pageEl) return;
+    // pause and reset HTML5 videos
+    pageEl.querySelectorAll('video').forEach(v => {
+      try { v.pause(); v.currentTime = 0; } catch (e) {}
+    });
+
+    // For iframes (LinkedIn embeds etc.) replace them with lightweight placeholders to stop playback
+    // and preserve the original markup so we can recreate the iframe later.
+    pageEl.querySelectorAll('iframe').forEach(iframe => {
+      try {
+        if (!iframe.dataset.origHtml) iframe.dataset.origHtml = iframe.outerHTML;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'iframe-placeholder';
+        placeholder.dataset.origHtml = iframe.dataset.origHtml;
+        iframe.parentNode.replaceChild(placeholder, iframe);
+      } catch (e) {}
+    });
+
+    // Stop YouTube players created via IFrame API
+    pageEl.querySelectorAll('.home-video-wrap').forEach(wrap => {
+      try {
+        if (wrap._ytPlayer && typeof wrap._ytPlayer.stopVideo === 'function') {
+          wrap._ytPlayer.stopVideo();
+        }
+      } catch (e) {}
+    });
+  }
+
+  function restoreMediaInPage(pageEl) {
+    if (!pageEl) return;
+    // Restore any iframe placeholders by recreating the original iframe from saved outerHTML
+    pageEl.querySelectorAll('.iframe-placeholder').forEach(ph => {
+      try {
+        if (ph.dataset.origHtml) {
+          ph.insertAdjacentHTML('afterend', ph.dataset.origHtml);
+          ph.parentNode.removeChild(ph);
+        }
+      } catch (e) {}
+    });
   }
 
   (function() {
