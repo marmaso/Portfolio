@@ -114,7 +114,7 @@ nav {
 }
 
 .works > .work-section-title + .work-item {
-  margin-top: 1rem;
+  margin-top: 0rem;
 }
 
 .works img {
