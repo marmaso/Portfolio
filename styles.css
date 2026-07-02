@@ -102,7 +102,7 @@ nav {
 .works {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   padding: 0 2rem 6rem;
   max-width: 1100px;
   margin: 0 auto;
@@ -113,9 +113,6 @@ nav {
   margin-bottom: 0;
 }
 
-.works > .work-section-title + .work-item {
-  margin-top: 1rem;
-}
 
 .works img {
   width: 4rem;
@@ -186,6 +183,13 @@ nav {
   opacity: 0;
 }
 .work-item:hover .work-label-text { letter-spacing: 0.14em; opacity: 1; }
+
+.work-item-desc{
+  font-family: 'Gara';
+  font-size: 1.15rem; font-weight: 500; 
+  align-self: start;
+  margin-left: 1.5rem;
+}
 
 /* ══════════════════════════
    PAGE HEADER (shared)
