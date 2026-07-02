@@ -74,6 +74,7 @@ nav {
   letter-spacing: 0.04em;
   color: #111;
   line-height: 1.9;
+
 }
 
 .back-arrow {
@@ -95,9 +96,9 @@ nav {
 }
 
 .divider {
-  width: 1px; height: 55px;
+  width: 1px; height: 50px;
   background: #ccc;
-  margin: 2.8rem auto;
+  margin: 0rem auto 3em;
 }
 .works {
   display: flex;
@@ -115,6 +116,7 @@ nav {
 
 .works > .work-section-title + .work-item {
   margin-top: 0rem;
+  
 }
 
 .works img {
@@ -131,7 +133,7 @@ nav {
   width: 100%;
 }
 /* Carousel controls for the first work item */
-.carousel { position: relative; display:block; }
+.carousel { position: relative; display:block; max-width: 80%; margin: 0 auto; }
 .carousel-img { width: 100%; display: block; }
 .carousel-btn {
   position: absolute;
@@ -155,6 +157,8 @@ nav {
 .carousel-btn:active { transform: translateY(-50%) scale(0.98); }
 .carousel-btn--left { left: -70px; }
 .carousel-btn--right { right: -70px; }
+.home-video-wrap { width: 100%; max-width: 96%; margin: 0 auto; }
+.home-video-frame { width: 100%; display: block; aspect-ratio: 16 / 9; height: auto; border: 0; }
 
 @media (max-width: 768px) {
   .carousel-btn { width: 40px; height: 40px; font-size: 1.25rem; }
