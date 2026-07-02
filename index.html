@@ -31,23 +31,25 @@
   </section>
   <div class="divider"></div>
   <div class="works">
-    <!-- Work item with image carousel controls -->
-    <h1 class="hero-name work-section-title" style="font-size: 1.7rem; margin: 0 0 0.8rem;">EDICIÓN DE FOTOGRAFÍA</h1>
-
+    
+    <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE FOTOGRAFÍA</h1>
+    
     <div class="work-item" onclick="showPage('fotos')">
-      <div class="carousel" id="carousel-1" data-images="media/comparacion%201.png,media/comparacion%202.png,media/comparacion%203.png,media/comparacion%207.png,media/comparacion%209.png">
+      <div class="carousel hoverable-item" id="carousel-1" data-images="media/comparacion%201.png,media/comparacion%202.png,media/comparacion%203.png,media/comparacion%207.png,media/comparacion%209.png">
         <img src="media/comparacion%201.png" alt="" class="carousel-img">
       </div>
-      <button class="carousel-btn carousel-btn--left" src="media/flecha derecha.png" alt="">>‹</button>
-      <button class="carousel-btn carousel-btn--right" src="media/flecha izquierda.png">›</button>
+      <button class="carousel-btn carousel-btn--left"><img src="media/flecha izquierda.png" alt="Anterior"></button>
+      <button class="carousel-btn carousel-btn--right"><img src="media/flecha derecha.png" alt="Siguiente"></button>
       <div class="work-label"><span class="work-label-text">Ver más</span></div>
     </div>
+    
+    <p class="work-item-desc">Desde Barcelona, trabajo en la gestión de proyectos, la coordinación de contenidos y la edición fotográfica y de vídeo. Me gusta conectar organización y creatividad, cuidando cada detalle del proceso para transformar material visual en narrativas claras y significativas. Mis proyectos:</p>
 
     <img src="GIF-5.gif" alt="" style="width: 100px; height: auto; display: block; margin: 1rem  auto 1rem;">
+
+    <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE VÍDEO</h1>
     
     <div class="work-item" onclick="showPage('video')">
-      <h1 class="hero-name work-section-title" style="font-size: 1.7rem; margin: 0 0 0.8rem;">EDICIÓN DE VÍDEO</h1>
-
       <div class="home-video-wrap">
         <iframe class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
@@ -258,6 +260,7 @@
         <p class="contact-label contact-gif">Redes<img src="GIF-2.gif" alt="Gif de redes" class="contact-icon contact-icon--small" /></p>
         <a href="https://linkedin.com/in/marmaso/" target="_blank">LinkedIn</a>
       </div>
+    </div>
   </div>
 </div>
 
@@ -343,6 +346,14 @@
             workItem.classList.remove('carousel-btn-hovered');
           });
         }
+      });
+
+      // toggle a class on the workItem when hovering the carousel itself
+      carousel.addEventListener('mouseenter', () => {
+        if (workItem) workItem.classList.add('carousel-image-hovered');
+      });
+      carousel.addEventListener('mouseleave', () => {
+        if (workItem) workItem.classList.remove('carousel-image-hovered');
       });
 
       imgEl.addEventListener('click', function(e) {});
