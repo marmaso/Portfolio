@@ -31,40 +31,34 @@
   </section>
   <div class="divider"></div>
   <div class="works">
-
-    <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE FOTOGRAFÍA</h1>
-
-    <div class="work-item" onclick="showPage('fotos')">
-      <div class="carousel hoverable-item" id="carousel-1" data-images="media/comparacion%201.png,media/comparacion%202.png,media/comparacion%203.png,media/comparacion%207.png,media/comparacion%209.png">
-        <img src="media/comparacion%201.png" alt="" class="carousel-img">
-      </div>
-      <button class="carousel-btn carousel-btn--left"><img src="media/flecha izquierda.png" alt="Anterior"></button>
-      <button class="carousel-btn carousel-btn--right"><img src="media/flecha derecha.png" alt="Siguiente"></button>
-      <div class="work-label"><span class="work-label-text">Ver más</span></div>
-    </div>
-    
-    <p class="work-item-desc">Imágenes capturadas por la empresa Stupendastic.</p>
-    <p class="work-item-desc">Forman parte del contenido visual publicado en la web <a href="https://www.alting.com/casos-de-exito/edificio-de-oficinas-en-av-diagonal-431-bis/" target="_blank">Alting.</a></p>
-
-
-    <img src="GIF-5.gif" alt="" style="width: 100px; height: auto; display: block; margin: 1rem  auto 1rem;">
-
-    <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE VÍDEO</h1>
-
     <div class="work-item" onclick="showPage('video')">
+    <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE VÍDEO</h1>
       <div class="home-video-wrap">
-        <iframe class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe id="home-video-player" class="home-video-frame" src="https://www.youtube.com/embed/XgjYDSUpa_o?si=BWVpLh6GqFGJ5yF-&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <div class="video-overlay" aria-hidden="true">
           <button class="overlay-btn overlay-btn--play">Reproducir</button>
           <button class="overlay-btn overlay-btn--more">Ver más</button>
         </div>
       </div>
       <div class="work-label"><span class="work-label-text">Ver más</span></div>
-    </div>
         <p class="work-item-desc">Imágenes capturadas por la empresa Stupendastic.</p>
         <p class="work-item-desc">Forman parte del contenido visual publicado en la web <a href="https://www.alting.com/casos-de-exito/edificio-de-oficinas-en-av-diagonal-431-bis/" target="_blank">Alting.</a></p>
+    </div>
 
+    <img class="work-separator" src="GIF-5.gif" alt="" >
 
+    <div class="work-item" onclick="showPage('fotos')">
+      <h1 class="hero-name work-section-title" style="font-size: 1.7rem;">EDICIÓN DE FOTOGRAFÍA</h1>
+      <div class="carousel hoverable-item" id="carousel-1" data-images="media/BA 1.png,media/BA 2.png,media/BA 3.png,media/BA 4.png">
+        <img src="media/BA 1.png" alt="" class="carousel-img">
+      </div>
+      <button class="carousel-btn carousel-btn--left"><img src="media/flecha izquierda.png" alt="Anterior"></button>
+      <button class="carousel-btn carousel-btn--right"><img src="media/flecha derecha.png" alt="Siguiente"></button>
+      <div class="work-label"><span class="work-label-text">Ver más</span></div>
+    <p class="work-item-desc">Imágenes capturadas por la empresa Stupendastic.</p>
+    <p class="work-item-desc">Forman parte del contenido visual publicado en la web <a href="https://www.alting.com/casos-de-exito/edificio-de-oficinas-en-av-diagonal-431-bis/" target="_blank">Alting.</a></p>
+    </div>
+    
   </div>
 </div>
 
@@ -327,47 +321,57 @@
   }
 
   // Stop and restore helpers for embedded media (iframes, html5 videos, youtube players)
-  function stopMediaInPage(pageEl) {
-    if (!pageEl) return;
-    // pause and reset HTML5 videos
-    pageEl.querySelectorAll('video').forEach(v => {
-      try { v.pause(); v.currentTime = 0; } catch (e) {}
-    });
+   function stopMediaInPage(pageEl) {
+     if (!pageEl) return;
+     // pause and reset HTML5 videos
+     pageEl.querySelectorAll('video').forEach(v => {
+       try { v.pause(); v.currentTime = 0; } catch (e) {}
+     });
 
-    // For iframes (LinkedIn embeds etc.) replace them with lightweight placeholders to stop playback
-    // and preserve the original markup so we can recreate the iframe later.
-    pageEl.querySelectorAll('iframe').forEach(iframe => {
-      try {
-        if (!iframe.dataset.origHtml) iframe.dataset.origHtml = iframe.outerHTML;
-        const placeholder = document.createElement('div');
-        placeholder.className = 'iframe-placeholder';
-        placeholder.dataset.origHtml = iframe.dataset.origHtml;
-        iframe.parentNode.replaceChild(placeholder, iframe);
-      } catch (e) {}
-    });
+     // For iframes (LinkedIn embeds etc.) replace them with lightweight placeholders to stop playback
+     // and preserve the original markup so we can recreate the iframe later.
+     pageEl.querySelectorAll('iframe').forEach(iframe => {
+       try {
+         if (!iframe.dataset.origHtml) iframe.dataset.origHtml = iframe.outerHTML;
+         const placeholder = document.createElement('div');
+         placeholder.className = 'iframe-placeholder';
+         placeholder.dataset.origHtml = iframe.dataset.origHtml;
+         iframe.parentNode.replaceChild(placeholder, iframe);
+       } catch (e) {}
+     });
 
-    // Stop YouTube players created via IFrame API
-    pageEl.querySelectorAll('.home-video-wrap').forEach(wrap => {
-      try {
-        if (wrap._ytPlayer && typeof wrap._ytPlayer.stopVideo === 'function') {
-          wrap._ytPlayer.stopVideo();
-        }
-      } catch (e) {}
-    });
-  }
+     // Stop YouTube players created via IFrame API and reset home video state
+     pageEl.querySelectorAll('.home-video-wrap').forEach(wrap => {
+       try {
+         if (wrap._ytPlayer && typeof wrap._ytPlayer.stopVideo === 'function') {
+           wrap._ytPlayer.stopVideo();
+         }
+         // Reset video playing state and show Reproducir button again
+         wrap._isVideoPlaying = false;
+         const playBtn = wrap.querySelector('.overlay-btn--play');
+         if (playBtn) {
+           playBtn.style.display = 'flex';
+         }
+       } catch (e) {}
+     });
+   }
 
-  function restoreMediaInPage(pageEl) {
-    if (!pageEl) return;
-    // Restore any iframe placeholders by recreating the original iframe from saved outerHTML
-    pageEl.querySelectorAll('.iframe-placeholder').forEach(ph => {
-      try {
-        if (ph.dataset.origHtml) {
-          ph.insertAdjacentHTML('afterend', ph.dataset.origHtml);
-          ph.parentNode.removeChild(ph);
-        }
-      } catch (e) {}
-    });
-  }
+   function restoreMediaInPage(pageEl) {
+     if (!pageEl) return;
+     // Restore any iframe placeholders by recreating the original iframe from saved outerHTML
+     pageEl.querySelectorAll('.iframe-placeholder').forEach(ph => {
+       try {
+         if (ph.dataset.origHtml) {
+           ph.insertAdjacentHTML('afterend', ph.dataset.origHtml);
+           ph.parentNode.removeChild(ph);
+         }
+       } catch (e) {}
+     });
+     // Reinitialize home video event listeners after restoring iframes
+     if (pageEl.id === 'page-home') {
+       try { initHomeVideo(); } catch (e) {}
+     }
+   }
 
   (function() {
     const backArrowEl = document.querySelector('.back-arrow');
@@ -426,82 +430,64 @@
     });
   }
 
-  function initHomeVideo() {
-    const pending = [];
-    document.querySelectorAll('.home-video-wrap').forEach(wrap => {
-      const container = wrap.querySelector('.home-video-frame');
-      const playBtn = wrap.querySelector('.overlay-btn--play');
-      const moreBtn = wrap.querySelector('.overlay-btn--more');
-      if (!container) return;
-      const videoId = container.dataset.videoId;
-      pending.push({ wrap, container, videoId, playBtn, moreBtn });
-    });
+   function initHomeVideo() {
+     document.querySelectorAll('.home-video-wrap').forEach(wrap => {
+       const iframe = wrap.querySelector('.home-video-frame');
+       const playBtn = wrap.querySelector('.overlay-btn--play');
+       const moreBtn = wrap.querySelector('.overlay-btn--more');
+       const overlay = wrap.querySelector('.video-overlay');
+       if (!iframe) return;
 
-    function createPlayers() {
-      pending.forEach((item, idx) => {
-        const { wrap, container, videoId, playBtn, moreBtn } = item;
-        // ensure the container has an id for YT.Player
-        if (!container.id) container.id = 'home-player-' + (idx + 1);
-        const player = new YT.Player(container.id, {
-          videoId: videoId,
-          width: '100%',
-          height: '100%',
-          playerVars: {
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
-            iv_load_policy: 3,
-            disablekb: 1,
-            playsinline: 1,
-            fs: 0
-          },
-          events: {
-            onReady: function(e) {
-              // keep player instance on the wrap for later use
-              wrap._ytPlayer = player;
-            }
-          }
-        });
+       // Track if video is currently playing
+       wrap._isVideoPlaying = false;
 
-        if (playBtn) {
-          playBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); e.preventDefault();
-            // ensure click triggers play through the API
-            if (wrap._ytPlayer && typeof wrap._ytPlayer.playVideo === 'function') {
-              wrap._ytPlayer.playVideo();
-            }
-          });
-        }
+       // Handle play button - use PostMessage API to control the iframe
+       if (playBtn) {
+         playBtn.addEventListener('click', function(e) {
+           e.stopPropagation();
+           e.preventDefault();
+           // Send play command to YouTube iframe using PostMessage API
+           const command = JSON.stringify({
+             event: 'command',
+             func: 'playVideo'
+           });
+           iframe.contentWindow.postMessage(command, '*');
+           // Hide only the play button, not the whole overlay
+           playBtn.style.display = 'none';
+           wrap._isVideoPlaying = true;
+           // Show the overlay again on video hover so Ver Más is accessible
+           if (overlay) {
+             overlay.style.opacity = '1';
+             overlay.style.visibility = 'visible';
+             overlay.style.pointerEvents = 'auto';
+           }
+         });
+       }
 
-        if (moreBtn) {
-          moreBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); e.preventDefault();
-            showPage('video');
-          });
-        }
-      });
-    }
+       // Handle more button
+       if (moreBtn) {
+         moreBtn.addEventListener('click', function(e) {
+           e.stopPropagation();
+           e.preventDefault();
+           showPage('video');
+         });
+       }
 
-    // Load IFrame API if needed and then create players
-    if (window.YT && window.YT.Player) {
-      createPlayers();
-    } else {
-      // queue creation after API ready
-      window._pendingHomePlayers = window._pendingHomePlayers || [];
-      window._pendingHomePlayers.push(createPlayers);
-      if (!document.getElementById('youtube-iframe-api')) {
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        tag.id = 'youtube-iframe-api';
-        document.head.appendChild(tag);
-      }
-      // expose global callback used by the API
-      window.onYouTubeIframeAPIReady = function() {
-        (window._pendingHomePlayers || []).forEach(fn => fn());
-        window._pendingHomePlayers = [];
-      };
-    }
-  }
+       // Restore play button visibility only if video is not playing
+       wrap.addEventListener('mouseleave', function() {
+         if (playBtn && !wrap._isVideoPlaying) {
+           playBtn.style.display = 'flex';
+         }
+       });
+
+       // Reset video playing state when video is paused/stopped
+       wrap.addEventListener('mouseenter', function() {
+         // Try to detect if video stopped (simplified check)
+         // In a real scenario, we'd use postMessage to query video state
+       });
+     });
+   }
+
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { initCarousels(); initHomeVideo(); });
