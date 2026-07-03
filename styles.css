@@ -102,23 +102,24 @@ nav {
 }
 .works {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0 2rem 6rem;
-  max-width: 1100px;
-  margin: 0 auto;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 7rem;
 }
 
-.works img {
-  width: 4rem;
-}
 
 .work-item {
   position: relative; overflow: visible;
   display: block;
-  width: 100%; /* ensure work-item stretches the full width of the .works container so percentage children size correctly */
+  width: 30%; 
+  align-items: center;
 }
+
+.work-separator{
+  width: 100px; height: auto; display: block; margin: 1rem  2rem;
+}
+
 .work-item.carousel-btn-hovered::after { background: rgba(0,0,0,0) !important; }
 .work-item.carousel-btn-hovered .work-label-text { opacity: 0 !important; }
 .work-item img{
