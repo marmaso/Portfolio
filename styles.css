@@ -284,6 +284,10 @@ height : 100%}
    cursor: pointer;
 }
 
+.navigator span{
+    text-decoration: underline;
+}
+
 /* ══════════════════════════
    PAGE HEADER (shared)
 ══════════════════════════ */
