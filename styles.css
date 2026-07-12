@@ -352,17 +352,6 @@ height : 100%}
   height: auto;
   max-width: 100%;
   display: block;
-  transition: transform 0.45s ease, filter 0.45s ease;
-}
-
-.project-foto::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0);
-  transition: background 0.35s ease;
-  pointer-events: none;
-  z-index: 3;
 }
 
 .foto-thumb-label {
@@ -383,9 +372,6 @@ height : 100%}
   transition: opacity 0.32s ease, transform 0.32s ease;
 }
 
-.project-foto:hover::after { background: rgba(0,0,0,0.32); }
-.project-foto:hover img { filter: none; transform: scale(1.01); }
-.project-foto:hover .foto-thumb-label { opacity: 1; transform: translateY(0); }
 
 /* ══════════════════════════
    VIDEO PAGE
